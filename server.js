@@ -25,4 +25,4 @@ app.post("/send", async (req, res) => {
   res.json({ status: "✅ Signal Sent to Telegram!" });
 });
 
-app.listen(3000, () => console.log("Server running on http://localhost:3000"));
+app.listen(3000, () => console.log("https://forid0k.github.io/signalsend/"));
