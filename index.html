@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Signal Sender</title>
+  <style>
+    body { background: #0d0d0d; color: white; font-family: Arial; text-align: center; }
+    .box { background: #1a1a1a; padding: 20px; margin: 50px auto; width: 300px; border-radius: 12px; }
+    select, input, button { width: 100%; padding: 10px; margin: 10px 0; border-radius: 8px; border: none; }
+    button { background: #00cc66; color: white; font-weight: bold; cursor: pointer; }
+    button:hover { background: #00994d; }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h2>📩 Send Signal</h2>
+    <input type="number" id="amount" placeholder="Enter Amount (৳)">
+    <input type="number" id="period" placeholder="Period Number">
+    <select id="direction">
+      <option value="BIG">BIG</option>
+      <option value="SMALL">SMALL</option>
+    </select>
+    <button onclick="sendSignal()">Send Signal</button>
+    <p id="status"></p>
+  </div>
+
+  <script>
+    async function sendSignal() {
+      const amount = document.getElementById("amount").value;
+      const period = document.getElementById("period").value;
+      const direction = document.getElementById("direction").value;
+
+      const message = `📢 New Signal\n\n💰 Amount: ৳${amount}\n⏳ Period: ${period}\n📊 Direction: ${direction}`;
+
+      // আপনার সার্ভারের API এ রিকোয়েস্ট যাবে
+      let res = await fetch("/send", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message })
+      });
+      let data = await res.json();
+      document.getElementById("status").innerText = data.status;
+    }
+  </script>
+</body>
+</html>
